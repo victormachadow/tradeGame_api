@@ -29,6 +29,4 @@ array(
  echo $publishString;
 
  
- 
-
 ?>

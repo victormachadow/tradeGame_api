@@ -1,31 +1,37 @@
 <?php
 
-//$data = POST["name"];
+//$dat = $_POST["id"];
 
-$data = file_get_contents('php://input');
-echo $data;
-//$json = json_decode($data, true);
-//$dat = $json["deletefile"];
+$dat = file_get_contents('php://input');
+$json = json_decode($dat , true);
+var_dump($json);
+$filename = $json["deletefile"];
+echo $filename;
 
 //if (array_key_exists("delete_file", $_POST)) {
   //$filename = $_POST["delete_file"];
-  /*
-  $filename = $dat
+  
   if (file_exists($filename)) {
     unlink($filename);
     echo 'File '.$filename.' has been deleted';
   } else {
-    //echo 'Could not delete '.$filename.', file does not exist';
-  $String = "Arquivo não existe";
-  $publishString = json_encode
+    echo 'Could not delete '.$filename.', file does not exist';
+
+  }
+
+/*
+$publishString = json_encode
 (
 array(
-    'String' => $String,
+    'String' => $dat,
 	)
 );
 echo $publishString;
-  }
- */ 
+*/  
+
+
+
+ 
 	
 
 ?>

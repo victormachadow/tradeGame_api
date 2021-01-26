@@ -1,6 +1,6 @@
 <?php
 
-$token = "13b6ac91a2";
+$token = "13b6ac91a2"; // There is a simple token to register new user , for not having problems with strangers requests
 $data = file_get_contents('php://input');
 $json = json_decode($data, true);
 $datEmail = $json["email"];
@@ -20,21 +20,35 @@ foreach (getallheaders() as $name => $value) {
 } 
 
 echo "Client token is :".$clientoken ;
+echo "Token is :".$token ;
 
+if( $clientoken == $token ) {
 
-$strcon = mysqli_connect('localhost','victor','victor','tradegame') or die('Erro ao conectar ao banco de dados');
+	echo "Acesso permitido";	
 
-$pegaEmail = mysqli_query( $strcon ,"SELECT * FROM user WHERE email = '$datEmail'");
+	$strcon = mysqli_connect('localhost','victor','victor','tradegame1') or die('Erro ao conectar ao banco de dados');
 
-if(mysqli_num_rows($pegaEmail) >= 1){
+	$pegaEmail = mysqli_query( $strcon ,"SELECT * FROM user WHERE email = '$datEmail'");
 	
-	echo "Email já existe";
-	
+	if(mysqli_num_rows($pegaEmail) >= 1){
+		
+		echo "Email já existe";
+		
+	}
+	else {
+		
+		echo "Email não existe";
+		
+	}
+
+
 }
 else {
-	
-	echo "Email não existe";
-	
-}
+
+	echo "Acesso negado";
+
+}	
+
+
 
 ?>

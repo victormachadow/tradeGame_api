@@ -9,7 +9,7 @@ $header = base64_encode($header);
 $payload = [
    'iss' => 'localhost',
    'name' => 'as4543434dasd',
-   'email' => 'asdaaksa4'
+   'email' => 'asdaaksa'
 ];
 $payload = json_encode($payload);
 $payload = base64_encode($payload);

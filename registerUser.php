@@ -19,6 +19,31 @@ foreach (getallheaders() as $name => $value) {
 	 }
 } 
 
+function geToken()
+{
+	
+	$header = [
+		'alg' => 'HS256',
+		'typ' => 'JWT'
+	 ];
+	 $header = json_encode($header);
+	 $header = base64_encode($header);
+	 
+	 $payload = [
+		'iss' => 'localhost',
+		'name' => 'as4543434dasd',
+		'email' => 'asdaaksa'
+	 ];
+	 $payload = json_encode($payload);
+	 $payload = base64_encode($payload);
+	 
+	 $signature = hash_hmac('sha256',"$header.$payload",'minha-senha',true);
+	 $signature = base64_encode($signature);
+	 
+	 return "$header.$payload.$signature";
+
+}
+
 //echo "Client token is :".$clientoken ;
 //echo "Token is :".$token ;
 
@@ -37,7 +62,7 @@ if( $clientoken == $token ) {
 		$publishString = json_encode
         (
           array(
-			  'string' => "0" ,
+			  'return' => 0 ,
 			  
 	          )
         );
@@ -54,11 +79,17 @@ if( $clientoken == $token ) {
 			
 		//echo "New record has id: " . mysqli_insert_id($con);
 		if($result) {
+	
+		$realToken = geToken(); 
+		//echo $realToken;
+
 		$publishString = json_encode
         (
           array(
-			  'string' => "1" ,
-			   'id' => mysqli_insert_id($strcon)
+			  'return' => 1 ,
+			   'id' => mysqli_insert_id($strcon),
+			   'token' => $realToken
+			   
 	          )
         );
 		echo $publishString;
@@ -73,7 +104,6 @@ if( $clientoken == $token ) {
 else {
 
 	echo "Acesso negado";
-
 }	
 
 
